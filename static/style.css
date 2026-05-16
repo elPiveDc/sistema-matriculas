@@ -1,16 +1,18 @@
 body {
   font-family: Arial;
-  text-align: center;
+  margin: 40px;
 }
 
-form {
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  width: 250px;
+section {
+  margin-bottom: 30px;
 }
 
-input, button {
+input {
+  padding: 8px;
   margin: 5px;
-  padding: 10px;
+}
+
+button {
+  padding: 8px 15px;
+  cursor: pointer;
 }
