@@ -26,8 +26,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install fastapi uvicorn
+          pip install -r requirements.txt
 
-      - name: Verify Python
+      - name: Run Tests
         run: |
-          python --version
+          pytest
