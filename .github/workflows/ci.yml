@@ -3,11 +3,11 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - desarrollo
+      - develop
 
   pull_request:
     branches:
-      - desarrollo
+      - develop
 
 jobs:
   test:
