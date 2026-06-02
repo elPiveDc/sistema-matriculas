@@ -1,6 +1,17 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
 
+app = FastAPI(title="Sistema Académico")
+
+cursos = []
+profesores = []
 grupos = []
+alumnos = []
+
+
+# MODELOS
 
 
 class Curso(BaseModel):
@@ -17,7 +28,14 @@ class Grupo(BaseModel):
     profesor: str
 
 
+class Alumno(BaseModel):
+    nombre: str
+    dni: str
+    carrera: str
+
+
 # FRONTEND
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
@@ -27,6 +45,8 @@ def home():
 
 
 # CURSOS
+
+
 @app.get("/cursos")
 def listar_cursos():
     return cursos
@@ -39,6 +59,8 @@ def crear_curso(curso: Curso):
 
 
 # PROFESORES
+
+
 @app.get("/profesores")
 def listar_profesores():
     return profesores
@@ -51,6 +73,8 @@ def crear_profesor(profesor: Profesor):
 
 
 # GRUPOS
+
+
 @app.get("/grupos")
 def listar_grupos():
     return grupos
@@ -60,3 +84,17 @@ def listar_grupos():
 def crear_grupo(grupo: Grupo):
     grupos.append(grupo.dict())
     return {"mensaje": "Grupo agregado"}
+
+
+# ALUMNOS
+
+
+@app.get("/alumnos")
+def listar_alumnos():
+    return alumnos
+
+
+@app.post("/alumnos")
+def crear_alumno(alumno: Alumno):
+    alumnos.append(alumno.dict())
+    return {"mensaje": "Alumno registrado"}
