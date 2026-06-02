@@ -1,306 +1,198 @@
-# Sistema de Gestión de Matrículas Académicas
+# Sistema de Gestión Académica
 
-## 1. Introducción
+## Descripción General
 
-### 1.1 Objetivo del Proyecto
+Sistema web desarrollado como proyecto académico para gestionar información básica relacionada con cursos, profesores, grupos y alumnos mediante una API REST construida con FastAPI.
 
-El propósito de este proyecto es desarrollar un sistema web simplificado para la gestión de matrículas estudiantiles. La solución busca automatizar el registro y visualización de alumnos matriculados, reemplazando procesos manuales propensos a errores.
-
-El uso de **Git** como sistema de control de versiones permite que los 6 integrantes del equipo trabajen de forma colaborativa, manteniendo un historial de cambios seguro, facilitando la integración entre frontend y backend, y evitando conflictos de código.
+El proyecto tiene como objetivo principal aplicar buenas prácticas de desarrollo colaborativo utilizando herramientas de control de versiones, integración continua, automatización y trabajo en equipo.
 
 ---
 
-### 1.2 Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
-* **Control de Versiones:** Git & GitHub
-* **Editor de Código:** Visual Studio Code
-* **Backend:** Python 3.x + FastAPI
-* **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
-* **Contenedores:** Docker & Docker Compose
-* **Gestión de Dependencias:** pip
+### Backend
 
----
+* Python 3.x
+* FastAPI
+* Uvicorn
 
-## 2. Descripción del Proyecto
+### Frontend
 
-### 2.1 Resumen
+* HTML5
+* CSS3
+* JavaScript (Vanilla)
 
-Se trata de una **aplicación web ligera** que permite registrar alumnos (Nombre, DNI, Carrera) y almacenarlos mediante una API REST.
+### DevOps y Automatización
 
-El frontend es servido directamente por el backend utilizando FastAPI, lo que simplifica la arquitectura inicial y facilita el despliegue.
+* Git
+* GitHub
+* GitHub Actions
+* Docker
+* Docker Compose
+* Pytest
 
----
+### Gestión y Comunicación
 
-### 2.2 Requerimientos
-
-#### Funcionales
-
-* Registrar nuevos alumnos
-* Listar alumnos matriculados en tiempo real
-* Servir el frontend desde el backend
-
-#### No funcionales
-
-* Interfaz intuitiva y responsive
-* Tiempo de respuesta menor a 200 ms
-* Código limpio, documentado y versionado
+* Trello
+* Slack
 
 ---
 
-### 2.3 Flujo de Trabajo Colaborativo
+## Estructura del Proyecto
 
-Se utiliza la estrategia **Feature Branching**:
-
-* `main` → versión estable (producción)
-* `desarrollo` → integración de funcionalidades
-* `tarea-*` → desarrollo de features individuales
-
-**Regla importante:** Nadie debe subir código directamente a `main`.
-
----
-
-## 3. Configuración del Proyecto
-
-Primero se realiza la creación de la estructura inicial del proyecto de manera local:
-
-```bash
-C:\Users\USUARIO>cd Documents
-
-C:\Users\USUARIO\Documents>mkdir sistema-matriculas
-
-C:\Users\USUARIO\Documents>cd sistema-matriculas
-
-C:\Users\USUARIO\Documents\sistema-matriculas>git init
-Initialized empty Git repository in C:/Users/USUARIO/Documents/sistema-matriculas/.git/
-
-C:\Users\USUARIO\Documents\sistema-matriculas>mkdir static
-
-C:\Users\USUARIO\Documents\sistema-matriculas>type nul > main.py
-
-C:\Users\USUARIO\Documents\sistema-matriculas>type nul > requirements.txt
-
-C:\Users\USUARIO\Documents\sistema-matriculas>type nul > .gitignore
-
-C:\Users\USUARIO\Documents\sistema-matriculas>git add .
-```
-
-Se realiza el primer commit:
-
-```bash
-C:\Users\USUARIO\Documents\sistema-matriculas>git commit -m "chore: estructura inicial del proyecto"
-```
-
-A continuación, se prepara la estructura de ramas:
-
-```bash
-C:\Users\USUARIO\Documents\sistema-matriculas>git branch desarrollo
-C:\Users\USUARIO\Documents\sistema-matriculas>git checkout desarrollo
-```
-
-Luego se regresa a la rama principal para renombrarla:
-
-```bash
-C:\Users\USUARIO\Documents\sistema-matriculas>git checkout master
-C:\Users\USUARIO\Documents\sistema-matriculas>git branch -m master main
-```
-
-Se conecta el repositorio local con GitHub y se publica la rama principal:
-
-```bash
-C:\Users\USUARIO\Documents\sistema-matriculas>git remote add origin https://github.com/elPiveDc/sistema-matriculas.git
-C:\Users\USUARIO\Documents\sistema-matriculas>git push -u origin main
-```
-
-Finalmente, se publica la rama de desarrollo:
-
-```bash
-C:\Users\USUARIO\Documents\sistema-matriculas>git checkout desarrollo
-C:\Users\USUARIO\Documents\sistema-matriculas>git push -u origin desarrollo
-```
-
----
-
-### 3.1 Configuración Inicial
-
-> ⚠️ Esta sección aplica para nuevos colaboradores que clonan el proyecto ya creado.
-
-#### 3.1.1 Crear Repositorio
-
-* Crear repositorio en GitHub: `sistema-matriculas`
-* Agregar:
-
-  * `.gitignore` (Python)
-  * Licencia MIT
-
----
-
-#### 3.1.2 Clonar Repositorio
-
-```bash
-git clone https://github.com/elPiveDc/sistema-matriculas.git 
-cd sistema-matriculas
-```
-
----
-
-#### 3.1.3 Crear Rama de Desarrollo
-
-```bash
-git checkout -b desarrollo
-git push origin desarrollo
-```
-
----
-
-## 3.2 Estructura del Proyecto
-
-### 3.2.1 Organización
-
-Se utiliza un enfoque **monorepo**, donde backend y frontend conviven en un mismo proyecto.
-
----
-
-### 3.2.2 Estructura de Carpetas
-
-```
-├── main.py              # API y servidor FastAPI
-├── requirements.txt     # Dependencias
-├── Dockerfile           # Configación Docker
-├── static/              # Frontend
+```text
+sistema-matriculas/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── static/
 │   ├── index.html
 │   ├── style.css
 │   └── script.js
+│
+├── tests/
+│   └── test_api.py
+│
+├── main.py
+├── requirements.txt
+├── run.bat
+├── test.bat
+├── Dockerfile
+├── docker-compose.yml
 └── README.md
 ```
 
 ---
 
-## 3.3 Gestión de Ramas
+## Estrategia de Ramas
 
-### Tipos de Ramas
+El proyecto utiliza una estrategia basada en Feature Branching.
 
-* `main` → Producción
-* `desarrollo` → Integración
-* `tarea-*` → Nuevas funcionalidades
+### Ramas Principales
+
+| Rama    | Propósito                               |
+| ------- | --------------------------------------- |
+| main    | Versión estable y lista para producción |
+| develop | Integración de funcionalidades          |
+| tarea-* | Desarrollo de nuevas características    |
 
 ### Ejemplos
 
-* `tarea-api-post`
-* `tarea-frontend-ui`
-* `tarea-docker-config`
+```text
+tarea-api-post
+tarea-frontend-ui
+tarea-docker-config
+tarea-ci-pipeline
+```
 
 ---
 
-## 4. Control de Versiones
+## Normas de Trabajo
 
-### 4.1 Commits
+### Regla 1: No trabajar directamente sobre main
 
-* Deben ser **atómicos** (un cambio por commit)
-* Usar convenciones claras:
+La rama `main` representa la versión estable del proyecto.
+
+No se permiten commits directos sobre esta rama.
+
+---
+
+### Regla 2: Toda funcionalidad debe desarrollarse en una rama propia
+
+Crear una rama a partir de `develop`:
 
 ```bash
-git commit -m "feat: agregar endpoint de registro de alumnos"
-git commit -m "fix: corregir validación de DNI"
+git checkout develop
+git pull origin develop
+
+git checkout -b tarea-nombre-funcionalidad
 ```
 
----
-
-### 4.2 Pull Requests
-
-#### Flujo
-
-1. Crear rama desde `desarrollo`
-2. Subir cambios
-3. Abrir Pull Request hacia `desarrollo`
-
----
-
-### 4.2.2 Revisión de Código
-
-* Mínimo 1 revisor
-* Comentarios en líneas específicas
-* Resolver observaciones antes de aprobar
-
----
-
-### 4.3 Merge de Ramas
-
-#### Desde GitHub
-
-* Usar **"Squash and Merge"** para mantener un historial limpio
-
----
-
-#### Desde consola
+Ejemplo:
 
 ```bash
-git checkout desarrollo
-git pull origin desarrollo
-git merge tarea-api-post
-git push origin desarrollo
+git checkout -b tarea-api-post
 ```
 
 ---
 
-### 4.4 Manejo de Conflictos
+### Regla 3: Commits descriptivos
 
-#### Ejemplo
+Utilizar mensajes claros siguiendo una convención estándar.
 
-Cuando dos personas modifican la misma línea:
-
-```
-<<<<<<< HEAD
-código A
-=======
-código B
->>>>>>> rama
-```
-
----
-
-#### Resolución
-
-1. Editar manualmente el archivo
-2. Guardar cambios
-3. Ejecutar:
+Ejemplos:
 
 ```bash
-git add main.py
-git commit -m "fix: resolver conflicto en API"
+git commit -m "feat: agregar endpoint de alumnos"
+git commit -m "fix: corregir validación de formulario"
+git commit -m "docs: actualizar README"
+git commit -m "test: agregar pruebas unitarias"
 ```
 
 ---
 
-### 4.5 Versionado y Releases
+### Regla 4: Uso obligatorio de Pull Requests
 
-#### Versionado Semántico
+Todo cambio debe integrarse mediante Pull Request.
 
-* `v0.1.0` → Primera versión funcional
-* `v1.0.0` → Versión estable
+Proceso:
+
+1. Crear rama.
+2. Realizar cambios.
+3. Hacer commit.
+4. Realizar push.
+5. Abrir Pull Request hacia `develop`.
+6. Solicitar revisión.
+7. Realizar merge.
 
 ---
 
-#### Releases
+### Regla 5: Revisión de Código
 
-Se publican desde GitHub para generar versiones descargables del proyecto.
+Antes de aprobar un Pull Request se debe verificar:
+
+* Correcto funcionamiento.
+* Código legible.
+* Ausencia de conflictos.
+* Cumplimiento de estándares del proyecto.
 
 ---
 
-## 5. Guía para Colaboradores
+## Instalación del Proyecto
 
-### Flujo de Trabajo
+### Clonar repositorio
 
 ```bash
-git clone <repo>
-git checkout desarrollo
-git checkout -b tarea-tu-nombre
-```
+git clone https://github.com/elPiveDc/sistema-matriculas.git
 
-Trabajar → Commit → Push → Pull Request
+cd sistema-matriculas
+```
 
 ---
 
-## 5.2 Instalación y Ejecución
+### Crear entorno virtual (opcional)
+
+```bash
+python -m venv venv
+```
+
+Activar:
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux:
+
+```bash
+source venv/bin/activate
+```
+
+---
 
 ### Instalar dependencias
 
@@ -310,7 +202,15 @@ pip install -r requirements.txt
 
 ---
 
-### Ejecutar servidor
+## Ejecución Local
+
+### Opción 1: Script automático
+
+```bash
+run.bat
+```
+
+### Opción 2: Manual
 
 ```bash
 uvicorn main:app --reload
@@ -318,23 +218,57 @@ uvicorn main:app --reload
 
 ---
 
-### Acceder en navegador
+## Acceso a la Aplicación
 
+Aplicación web:
+
+```text
+http://localhost:8000
 ```
-http://127.0.0.1:8000
+
+Documentación Swagger:
+
+```text
+http://localhost:8000/docs
 ```
 
 ---
 
-## 6. Docker (Opcional)
+## Pruebas Automatizadas
+
+Ejecutar pruebas:
+
+```bash
+test.bat
+```
+
+o
+
+```bash
+pytest
+```
+
+---
+
+## Integración Continua (CI)
+
+El proyecto utiliza GitHub Actions para ejecutar automáticamente:
+
+* Instalación de dependencias.
+* Validación del entorno.
+* Ejecución de pruebas automatizadas.
+
+Cada push o Pull Request hacia la rama `develop` dispara automáticamente el pipeline de CI.
+
+---
+
+## Docker
 
 ### Construir imagen
 
 ```bash
 docker build -t sistema-matriculas .
 ```
-
----
 
 ### Ejecutar contenedor
 
@@ -344,32 +278,37 @@ docker run -p 8000:8000 sistema-matriculas
 
 ---
 
-## 7. Conclusiones
+## Gestión del Proyecto
 
-### 7.1 Lecciones Aprendidas
+### Trello
 
-* Importancia del trabajo colaborativo
-* Uso eficiente de Git como herramienta de coordinación
-* Resolución de conflictos como aprendizaje clave
+Se utiliza para:
+
+* Planificación de tareas.
+* Seguimiento del avance.
+* Distribución de responsabilidades.
+
+### Slack
+
+Se utiliza para:
+
+* Comunicación diaria.
+* Coordinación del equipo.
+* Resolución rápida de incidencias.
+
+---
+
+## Equipo de Desarrollo
+
+* Mateo Davila Castillo
+* Gian Moises Flores Rivera
+* Integrante 3
+* Integrante 4
+* Integrante 5
+* Integrante 6
 
 ---
 
-### 7.2 Mejoras Futuras
+## Licencia
 
-* Implementar CI/CD con GitHub Actions
-* Separar frontend y backend (arquitectura escalable)
-* Agregar autenticación de usuarios
-* Integrar base de datos real (PostgreSQL o MySQL)
-
----
-
-## Autor(es)
-
-* Davila Castillo, Mateo - U23203172
-* Flores Rivera Gian Moises -U222320340
-* ...
-* ...
-* ...
-* ...
-
----
+Proyecto desarrollado con fines académicos.
