@@ -302,7 +302,7 @@ Se utiliza para:
 
 * Mateo Davila Castillo
 * Gian Moises Flores Rivera
-* Integrante 3
+* Alexander Ortiz Aguilar
 * Integrante 4
 * Integrante 5
 * Integrante 6
