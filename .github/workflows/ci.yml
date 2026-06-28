@@ -38,3 +38,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: pytest tests/test_api.py
+        
+      - name: Run Linter
+        run: |
+          flake8 .
