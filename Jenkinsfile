@@ -16,6 +16,9 @@ pipeline {
         }
 
         stage('Run Tests') {
+            environment {
+                PYTHONPATH = '.'
+            }
             steps {
                 sh '''
                     . venv/bin/activate
