@@ -54,7 +54,7 @@ def listar_cursos():
 
 @app.post("/cursos")
 def crear_curso(curso: Curso):
-    cursos.append(curso.dict())
+    cursos.append(curso.model_dump())
     return {"mensaje": "Curso agregado"}
 
 
@@ -68,7 +68,7 @@ def listar_profesores():
 
 @app.post("/profesores")
 def crear_profesor(profesor: Profesor):
-    profesores.append(profesor.dict())
+    profesores.append(profesor.model_dump())
     return {"mensaje": "Profesor agregado"}
 
 
@@ -82,7 +82,7 @@ def listar_grupos():
 
 @app.post("/grupos")
 def crear_grupo(grupo: Grupo):
-    grupos.append(grupo.dict())
+    grupos.append(grupo.model_dump())
     return {"mensaje": "Grupo agregado"}
 
 
@@ -96,5 +96,5 @@ def listar_alumnos():
 
 @app.post("/alumnos")
 def crear_alumno(alumno: Alumno):
-    alumnos.append(alumno.dict())
+    alumnos.append(alumno.model_dump())
     return {"mensaje": "Alumno registrado"}
