@@ -3,7 +3,6 @@ pipeline {
 
     stages {
         stage('Install Dependencies & Run Tests') {
-            // El plugin usa esta imagen de Python para aislar este bloque
             agent {
                 docker { 
                     image 'python:3.10-slim'
