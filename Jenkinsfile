@@ -1,36 +1,21 @@
 pipeline {
-
     agent any
 
     stages {
-
-        stage('Install Dependencies') {
+        stage('Install Dependencies & Run Tests') {
+            // El plugin usa esta imagen de Python para aislar este bloque
+            agent {
+                docker { 
+                    image 'python:3.10-slim'
+                    args '-v /var/jenkins_home/.cache:/root/.cache'
+                }
+            }
             steps {
                 sh 'pip install -r requirements.txt'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
+                echo 'Running Tests...'
                 sh 'pytest --cov=. tests/test_api.py'
-            }
-        }
-
-        stage('Run Linter') {
-            steps {
+                echo 'Running Linter...'
                 sh 'flake8 .'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t sistema-matriculas .'
-            }
-        }
-
-        stage('Run Tests Inside Docker') {
-            steps {
-                sh 'docker run --rm sistema-matriculas pytest tests/test_api.py'
             }
         }
     }
