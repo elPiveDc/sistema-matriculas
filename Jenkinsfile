@@ -1,20 +1,36 @@
 pipeline {
+
     agent any
 
     stages {
-        stage('Install Dependencies & Run Tests') {
-            agent {
-                docker { 
-                    image 'python:3.10-slim'
-                    args '-v /var/jenkins_home/.cache:/root/.cache'
-                }
-            }
+
+        stage('Install Dependencies') {
             steps {
                 sh 'pip install -r requirements.txt'
-                echo 'Running Tests...'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
                 sh 'pytest --cov=. tests/test_api.py'
-                echo 'Running Linter...'
+            }
+        }
+
+        stage('Run Linter') {
+            steps {
                 sh 'flake8 .'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t sistema-matriculas .'
+            }
+        }
+
+        stage('Run Tests Inside Docker') {
+            steps {
+                sh 'docker run --rm sistema-matriculas pytest tests/test_api.py'
             }
         }
     }
