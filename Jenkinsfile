@@ -4,21 +4,32 @@ pipeline {
 
     stages {
 
-        stage('Install Dependencies') {
+        stage('Create Virtual Environment') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    python -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest --cov=. tests/test_api.py'
+                sh '''
+                    . venv/bin/activate
+                    pytest --cov=. tests/test_api.py
+                '''
             }
         }
 
         stage('Run Linter') {
             steps {
-                sh 'flake8 .'
+                sh '''
+                    . venv/bin/activate
+                    flake8 .
+                '''
             }
         }
 
