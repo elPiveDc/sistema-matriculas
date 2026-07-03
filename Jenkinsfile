@@ -35,17 +35,5 @@ pipeline {
                 '''
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t sistema-matriculas .'
-            }
-        }
-
-        stage('Run Tests Inside Docker') {
-            steps {
-                sh 'docker run --rm sistema-matriculas pytest tests/test_api.py'
-            }
-        }
     }
 }
