@@ -11,7 +11,7 @@ grupos = []
 alumnos = []
 
 
-# MODELOS
+# MODELOS CI
 
 
 class Curso(BaseModel):
