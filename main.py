@@ -98,3 +98,8 @@ def listar_alumnos():
 def crear_alumno(alumno: Alumno):
     alumnos.append(alumno.model_dump())
     return {"mensaje": "Alumno registrado"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
