@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Académico y Registro de Alumnos</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h1>Sistema Académico</h1>
+
+    <!-- Módulo de Cursos -->
+    <section>
+      <h2>Crear Curso</h2>
+      <input type="text" id="curso" placeholder="Nombre del curso" />
+      <button onclick="crearCurso()">Guardar</button>
+    </section>
+
+    <!-- Módulo de Profesores -->
+    <section>
+      <h2>Crear Profesor</h2>
+      <input type="text" id="profesor" placeholder="Nombre del profesor" />
+      <button onclick="crearProfesor()">Guardar</button>
+    </section>
+
+    <!-- Módulo de Grupos -->
+    <section>
+      <h2>Crear Grupo</h2>
+      <input type="text" id="grupo" placeholder="Grupo" />
+      <input type="text" id="grupoCurso" placeholder="Curso" />
+      <input type="text" id="grupoProfesor" placeholder="Profesor" />
+      <button onclick="crearGrupo()">Guardar</button>
+    </section>
+
+    <!-- Módulo de Alumnos -->
+    <section>
+      <h2>Registro de Alumnos</h2>
+      <input type="text" id="nombre" placeholder="Nombre" required />
+      <input type="text" id="dni" placeholder="DNI" required />
+      <input type="text" id="carrera" placeholder="Carrera" required />
+      <button onclick="registrarAlumno()">Registrar</button>
+
+      <h3>Lista de Alumnos</h3>
+      <ul id="listaAlumnos"></ul>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>

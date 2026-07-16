@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-app = FastAPI(title="Sistema Académico")
+app = FastAPI(title="Sistema de Matriculas Académico")
 
 cursos = []
 profesores = []
