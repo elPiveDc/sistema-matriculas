@@ -1,0 +1,77 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login en Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Construir imagen Docker
+        run: |
+          docker build -t sistema-matriculas:${{ github.sha }} .
+
+      - name: Etiquetar imagen
+        run: |
+          docker tag sistema-matriculas:${{ github.sha }} \
+          ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+
+          docker tag sistema-matriculas:${{ github.sha }} \
+          ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+
+      - name: Subir imágenes a ECR
+        run: |
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+
+      - name: Desplegar en EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          script: |
+
+            aws ecr get-login-password --region us-east-1 | \
+            sudo docker login \
+            --username AWS \
+            --password-stdin \
+            ${{ steps.login-ecr.outputs.registry }}
+
+            sudo docker pull \
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+
+            sudo docker stop sistema-matriculas || true
+
+            sudo docker rm sistema-matriculas || true
+
+            sudo docker run -d \
+              --restart unless-stopped \
+              --name sistema-matriculas \
+              -p 8000:8000 \
+              ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+
+            sudo docker image prune -f
+            sleep 10
+            curl http://localhost:8000/health
